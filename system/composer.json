@@ -1,0 +1,17 @@
+{
+    "name": "egoist-developer/kor-ph-framework",
+    "description": "KOR PHP MVC Framework",
+    "type": "framework",
+    "require": {
+        "lcobucci/jwt": "3.2.0",
+        "mustache/mustache": "dev-master"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "EgoistDeveloer",
+            "email": "iam@egoist.dev"
+        }
+    ],
+    "minimum-stability": "dev"
+}
