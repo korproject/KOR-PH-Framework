@@ -18,16 +18,12 @@ class View
         $this->mustache = new Mustache_Engine();
     }
 
-    public function getView($file){
-
-    }
-
-    public function frontView($file){
+    public function baseView($file){
         if ($file){
-            $fullFilePath = "app/views/themes/{$this->theme}/{$file}.php";
+            $fullFilePath = __DIR__."/../../app/views/themes/{$this->theme}/{$file}.php";
 
             if (file_exists($fullFilePath)){
-                
+                print_r(file_get_contents($fullFilePath));
             }
         }
     }
@@ -35,11 +31,7 @@ class View
     /**
      * XHR view
      */
-    public function xhrView($params){
-        if ($params){
-            return print_r($params['result']);
-        }
-
-        echo '{}';
+    public function xhrView($param){
+        echo $param ? $param : '{}';
     }
 }

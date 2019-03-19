@@ -62,7 +62,7 @@ class Bootstrap
     public function parseUrl()
     {
         // file path
-        $file = isset($_GET['file']) ? rtrim($_GET['file']) : null;
+        $file = isset($_GET['file']) ? $_GET['file'] : null;
 
         if ($file) {
             $targetSection = null;
@@ -84,7 +84,7 @@ class Bootstrap
                     if ($targetSection === 'xhr') {
                         $this->callXhrController($file, $className);
                     } else {
-                        echo 'target page missing';
+                        $this->callGeneralController($file, $className);
                     }
                 } else {
                     echo 'controller class not found';
@@ -100,6 +100,46 @@ class Bootstrap
     public function setUser()
     {
 
+    }
+
+    private function callGeneralController($file, $className)
+    {
+        $token = $this->common->getHeader('session-token');
+        $checkAuth = $token ? $this->checkWebSession($token) : false;
+
+        // ###for test purposes
+        $checkAuth = $this->checkWebSession($this->common->getCookie('session_token'));
+
+        if (!$checkAuth) {
+            http_response_code(403);
+            echo json_encode([
+                'result' => false,
+                'message' => $this->lang['error_auth_required'],
+            ]);
+            exit();
+        }
+
+        $controllerClass = "{$className}Controller";
+        $controller = new $controllerClass($file, $className);
+        $controller->data = json_decode(json_encode($this->common->post()));
+        $controller->user = $checkAuth;
+        
+        $request = null;
+        $requestGet = $this->common->get('request');
+        $requestPost = $this->common->post('request');
+
+        $request = $requestPost ? $requestPost : $requestGet;
+
+        if (!method_exists($controller, $request)) {
+            http_response_code(403);
+            $controller->result = [
+                'result' => false,
+                'message' => "Invalid argument: {$request}",
+            ];
+            exit();
+        } else {
+            $controller->$request();
+        }
     }
 
     private function callXhrController($file, $className)
@@ -120,7 +160,7 @@ class Bootstrap
         }
 
         $controllerClass = "{$className}Controller";
-        $controller = new $controllerClass($file, $className);
+        $controller = new $controllerClass($file, $className, $checkAuth);
         $controller->data = json_decode(json_encode($this->common->post()));
 
         $request = null;

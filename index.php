@@ -6,7 +6,8 @@ require_once 'system/helpers/database.php';
 
 require_once 'system/libs/auth.php';
 require_once 'system/libs/bootstrap.php';
-require_once 'system/libs/controller.php';
+require_once 'system/libs/xhr-controller.php';
+require_once 'system/libs/base-controller.php';
 require_once 'system/libs/view.php';
 require_once 'system/libs/model.php';
 

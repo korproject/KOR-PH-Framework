@@ -3,6 +3,7 @@
 class Model
 {
     protected $db = null;
+    public $user = null;
 
     public function init()
     {
