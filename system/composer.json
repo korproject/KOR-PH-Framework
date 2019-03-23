@@ -4,7 +4,8 @@
     "type": "framework",
     "require": {
         "lcobucci/jwt": "3.2.0",
-        "mustache/mustache": "dev-master"
+        "mustache/mustache": "dev-master",
+        "piwik/device-detector": "dev-master"
     },
     "license": "MIT",
     "authors": [

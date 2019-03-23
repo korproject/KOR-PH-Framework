@@ -360,17 +360,6 @@ class Common
     }
 
     /**
-     * JSON validator
-     *
-     * @param string $content
-     */
-    public function isJson($content)
-    {
-        json_decode($content);
-        return json_last_error() === JSON_ERROR_NONE ? true : false;
-    }
-
-    /**
      * Get time elapsed string from given between dates by human readable format
      *
      * @param string $date_now: current date

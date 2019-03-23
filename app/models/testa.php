@@ -7,8 +7,8 @@ class TestaModel extends Model
         parent::init();
     }
 
-    public function func()
+    public function getData()
     {
-        return $this->db->select()->from('app_game_os')->run();
+        return $this->db->selectAll()->from('app_game_os')->run();
     }
 }

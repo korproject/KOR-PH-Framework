@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Lcobucci\\JWT\\' => array($vendorDir . '/lcobucci/jwt/src'),
+    'DeviceDetector\\' => array($vendorDir . '/piwik/device-detector'),
 );

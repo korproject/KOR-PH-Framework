@@ -6,10 +6,18 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitba0af8f7008bddf8f2948fcf2f9445ed
 {
+    public static $files = array (
+        '04c6c5c2f7095ccf6c481d3e53e1776f' => __DIR__ . '/..' . '/mustangostang/spyc/Spyc.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'L' => 
         array (
             'Lcobucci\\JWT\\' => 13,
+        ),
+        'D' => 
+        array (
+            'DeviceDetector\\' => 15,
         ),
     );
 
@@ -17,6 +25,10 @@ class ComposerStaticInitba0af8f7008bddf8f2948fcf2f9445ed
         'Lcobucci\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/lcobucci/jwt/src',
+        ),
+        'DeviceDetector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/piwik/device-detector',
         ),
     );
 

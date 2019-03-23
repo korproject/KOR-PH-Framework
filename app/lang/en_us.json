@@ -1,4 +1,12 @@
 {
     "error_missing_page": "Missing Page",
-    "error_auth_required": "Login required for this action."
+    "error_auth_required": "Login required for this action.",
+    "bg_invalid_content_array": "Invalid content array, contents should not be empty or another type.",
+    "bg_argument_missing": "Missing argument",
+    "bg_missing_field": "Missing field",
+    "bg_field_is_null": "Null or empty field is not allowed",
+    "bg_invalid_field_value_type": "Invalid field value type, expected type",
+    "bg_invalid_field_value_length": "Invalid field value length, expected length",
+    "bg_unexpected_field_value": "Unexpected field value, expect list",
+    "bg_invalid_field_value": "Invalid value, field is null"
 }

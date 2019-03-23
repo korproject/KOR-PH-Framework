@@ -1,23 +1,29 @@
 <?php
-require_once 'system/vendor/autoload.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-require_once __DIR__.'/system/helpers/common.php';
-require_once 'system/helpers/database.php';
-
-require_once 'system/libs/auth.php';
-require_once 'system/libs/bootstrap.php';
-require_once 'system/libs/xhr-controller.php';
-require_once 'system/libs/base-controller.php';
-require_once 'system/libs/view.php';
-require_once 'system/libs/model.php';
-
-/*function __autoload($libClassName){
-    include_once "system/libs/{$libClassName}.php";
-}*/
-// Config dosyasını include ediyoruz.
+// configs
 include_once 'app/configs/configs.php';
 include_once 'app/configs/connection.php';
 
-// Bootstrap Bölümü
+// vendor
+require_once __DIR__.'/system/vendor/autoload.php';
+
+require_once __DIR__.'/system/helpers/common.php';
+require_once __DIR__.'/system/helpers/database.php';
+require_once __DIR__.'/system/helpers/lang.php';
+require_once __DIR__.'/system/helpers/validate.php';
+require_once __DIR__.'/system/helpers/benchmark.php';
+require_once __DIR__.'/system/helpers/data.php';
+
+require_once __DIR__.'/system/libs/client-auth.php';
+require_once __DIR__.'/system/libs/bootstrap.php';
+require_once __DIR__.'/system/libs/xhr-controller.php';
+require_once __DIR__.'/system/libs/base-controller.php';
+require_once __DIR__.'/system/libs/view.php';
+require_once __DIR__.'/system/libs/model.php';
+require_once __DIR__.'/system/libs/loader.php';
+
+// bootstrap class
 $boot = new Bootstrap();
 ?>

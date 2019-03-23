@@ -18,12 +18,18 @@ class View
         $this->mustache = new Mustache_Engine();
     }
 
-    public function baseView($file){
+    public function baseView($file, $params){
         if ($file){
-            $fullFilePath = __DIR__."/../../app/views/themes/{$this->theme}/{$file}.php";
+            $content = null;
 
-            if (file_exists($fullFilePath)){
-                print_r(file_get_contents($fullFilePath));
+            $content .= file_get_contents(__DIR__."/../../app/views/themes/{$this->theme}/inc/header.mustache");
+
+            $body = __DIR__."/../../app/views/themes/{$this->theme}/{$file}.mustache";
+
+            if (file_exists($body)){                
+                $content .= file_get_contents($body);
+
+                echo  $this->mustache->render($content, $params);
             }
         }
     }
