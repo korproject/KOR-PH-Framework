@@ -1,5 +1,6 @@
 <?php
 define('DEFAULT_LANG', 'en_us');
+define('APP_PATH', realpath(__DIR__.'/../'));
 
 class Configs{
     public $configs = [

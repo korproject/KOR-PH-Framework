@@ -35,9 +35,9 @@ class View
     }
 
     /**
-     * XHR view
+     * API view
      */
-    public function xhrView($param){
+    public function apiView($param){
         echo $param ? $param : '{}';
     }
 }

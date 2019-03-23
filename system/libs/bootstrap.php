@@ -58,8 +58,8 @@ class Bootstrap extends Lang
                 require_once $controllerFilePath;
 
                 if (class_exists("{$className}Controller")) {
-                    if ($targetSection === 'xhr') {
-                        $this->callXhrController($file, $className);
+                    if ($targetSection === 'api') {                        
+                        $this->callApiController($file, $className);
                     } else {
                         $this->callGeneralController($file, $className);
                     }
@@ -67,6 +67,7 @@ class Bootstrap extends Lang
                     echo 'controller class not found';
                 }
             } else {
+                print_r($_GET);
                 echo 'file not found error';
             }
         } else {
@@ -98,7 +99,7 @@ class Bootstrap extends Lang
         $controller->loader = new Loader();
     }
 
-    private function callXhrController($file, $className)
+    private function callApiController($file, $className)
     {
         $token = $this->common->getHeader('session-token');
         $checkAuth = $token ? $this->checkWebSession($token) : false;

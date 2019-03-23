@@ -24,7 +24,7 @@ class Model
                 if (class_exists($modelClass)){
                     return new $modelClass();
                 } else {
-                    echo 'model class not found';
+                    echo 'model class not found: '.$file;
                 }
             } else {
                 echo 'model file not found: '.$file.'.php';

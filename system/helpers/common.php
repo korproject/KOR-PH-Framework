@@ -495,27 +495,27 @@ class Common
      */
     public function getMinPostUpSize()
     {
-        $max_post_size = $this->getMaxPostSize();
-        $max_up_size = $this->getMaxUploadSize();
+        $maxPostSize = $this->getMaxPostSize();
+        $maxUpSize = $this->getMaxUploadSize();
 
-        if ($max_post_size && $max_up_size) {
+        if ($maxPostSize && $maxUpSize) {
             $symbols = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
             // post_max_size x MB == upload_max_filesize y MB
-            if (array_search($max_post_size[2], $symbols) == array_search($max_up_size, $symbols)) {
+            if (array_search($maxPostSize[2], $symbols) == array_search($maxUpSize, $symbols)) {
                 // post_max_size 99 MB <= upload_max_filesize 99 || 100 MB
-                if ($max_post_size[1] <= $max_up_size[1]) {
-                    return $max_post_size; // return POST size (as array)
+                if ($maxPostSize[1] <= $maxUpSize[1]) {
+                    return $maxPostSize; // return POST size (as array)
                 } // post_max_size 101 MB > upload_max_filesize 100 MB
                 else {
-                    return $max_up_size; // return Upload size (as array)
+                    return $maxUpSize; // return Upload size (as array)
                 }
             } // post_max_size 1 MB || GB <= upload_max_filesize 2 GB
-            else if (array_search($max_post_size[2], $symbols) <= array_search($max_up_size, $symbols)) {
-                return $max_post_size;
+            else if (array_search($maxPostSize[2], $symbols) <= array_search($maxUpSize, $symbols)) {
+                return $maxPostSize;
             } // post_max_size 100 MB || GB ... > upload_max_filesize 2 MB || GB ...
             else {
-                return $max_up_size;
+                return $maxUpSize;
             }
         }
 
