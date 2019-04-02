@@ -51,5 +51,8 @@ class TestaController extends ApiController
     public function func2()
     {
         echo $this->validate->isRgbColor('33,33,33,66') ? 'ok' : 'no';
-    }
+
+        '$_PUT';
+    } 
 }
+ 

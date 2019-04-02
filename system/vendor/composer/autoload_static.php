@@ -11,6 +11,10 @@ class ComposerStaticInitba0af8f7008bddf8f2948fcf2f9445ed
     );
 
     public static $prefixLengthsPsr4 = array (
+        'M' => 
+        array (
+            'MimeType\\' => 9,
+        ),
         'L' => 
         array (
             'Lcobucci\\JWT\\' => 13,
@@ -22,6 +26,10 @@ class ComposerStaticInitba0af8f7008bddf8f2948fcf2f9445ed
     );
 
     public static $prefixDirsPsr4 = array (
+        'MimeType\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/katzien/php-mime-type/src',
+        ),
         'Lcobucci\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/lcobucci/jwt/src',

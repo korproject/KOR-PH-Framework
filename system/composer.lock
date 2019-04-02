@@ -4,8 +4,52 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "70e85c6bc452bea360de06e2f42170a8",
+    "content-hash": "6f68be3e5f25e5779159e5bedcf67595",
     "packages": [
+        {
+            "name": "katzien/php-mime-type",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/katzien/PhpMimeType.git",
+                "reference": "159dfbdcd5906442f3dad89951127f0b9dfa3b78"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/katzien/PhpMimeType/zipball/159dfbdcd5906442f3dad89951127f0b9dfa3b78",
+                "reference": "159dfbdcd5906442f3dad89951127f0b9dfa3b78",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.*",
+                "satooshi/php-coveralls": "1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MimeType\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kat Zien"
+                }
+            ],
+            "description": "A PHP library to detect the mime type of files.",
+            "homepage": "https://github.com/katzien/PhpMimeType",
+            "keywords": [
+                "mimetype",
+                "php"
+            ],
+            "time": "2017-03-23T02:05:33+00:00"
+        },
         {
             "name": "lcobucci/jwt",
             "version": "3.2.0",
@@ -221,7 +265,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "mustache/mustache": 20,
-        "piwik/device-detector": 20
+        "piwik/device-detector": 20,
+        "katzien/php-mime-type": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

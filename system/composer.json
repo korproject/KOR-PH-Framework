@@ -5,7 +5,8 @@
     "require": {
         "lcobucci/jwt": "3.2.0",
         "mustache/mustache": "dev-master",
-        "piwik/device-detector": "dev-master"
+        "piwik/device-detector": "dev-master",
+        "katzien/php-mime-type": "dev-master"
     },
     "license": "MIT",
     "authors": [

@@ -36,7 +36,7 @@ function autoload($includeFolders = null, $subFolders = false)
         // search every target directory
         foreach ($includeFolders as $folder => $searchSub) {
             // search sub directories
-            if (!isPhpFile($folder) && $searchSub) {
+            if ($searchSub) {
                 $dirName . DIRECTORY_SEPARATOR . $folder.'<br>';
                 globRecursive($dirName . DIRECTORY_SEPARATOR . $folder, $dir);
             } // only current directory
@@ -45,34 +45,14 @@ function autoload($includeFolders = null, $subFolders = false)
             }
         }
     } // if there is only path (as a string)
-    else if (is_string($includeFolders)) {
-        if (!isPhpFile($includeFolders) && $subFolders){
-            globRecursive($dirName . DIRECTORY_SEPARATOR . $includeFolders, $dir);
-        }
+    else if (is_string($includeFolders) && $subFolders) {
+        globRecursive($dirName . DIRECTORY_SEPARATOR . $includeFolders, $dir);
     }
 
     // merge all directories
     $dirs = is_array($dir) ? implode(PATH_SEPARATOR, $dir) : $dirName . ($includeFolders ? DIRECTORY_SEPARATOR . $includeFolders : null);
 
     registerDirs($dirs);
-}
-
-/**
- * Check is PHP
- * @param string $file: target subject
- */
-function isPhpFile($file){
-    if (is_file($file)){
-        $ext = pathinfo($file);
-
-        if ($ext['extension'] === 'php'){
-            requireFile($file);
-
-            return true;
-        }
-    }
-
-    return false;
 }
 
 /**
@@ -93,15 +73,5 @@ function registerDirs($dirs){
             // loads when called
             spl_autoload($className);
         });
-    }
-}
-
-/**
- * Require single file
- * @param string $file: target file
- */
-function requireFile($file){
-    if ($file && file_exists($file)){
-        require_once $file;
     }
 }
