@@ -4,19 +4,19 @@ class FileSize
 {
     public $removeComma = true;
 
-    public function byte2KB($bytes, $decimal_places = 0, $suffix = 'KB'){
+    public function byte2KB($bytes, $decimal_places = 0){
         str_replace(array('.', ','), null , $bytes);
         $kb = number_format($bytes / 1024, $decimal_places);
         return $this->removeComma ? str_replace(',', null, $kb) : $kb;
     }
 
-    public function byte2MB($bytes, $decimal_places = 0, $suffix = 'MB'){
+    public function byte2MB($bytes, $decimal_places = 0){
         str_replace(array('.', ','), null , $bytes);
         $mb = number_format($bytes / 1048576, $decimal_places);
         return $this->removeComma ? str_replace(',', null, $mb) : $mb;
     }
 
-    public function byte2GB($bytes, $decimal_places = 0, $suffix = 'GB'){
+    public function byte2GB($bytes, $decimal_places = 0){
         str_replace(array('.', ','), null , $bytes);
         $gb = number_format($bytes / 1073741824, $decimal_places);
         return $this->removeComma ? str_replace(',', null, $gb) : $gb;
@@ -84,7 +84,7 @@ class FileSize
      * 
      * @return bool|array
      */
-    public function getMinPostUpSize(){
+    public function getMaxPostUpSize(){
         $maxPostSize = $this->getMaxPostSize();
         $maxUpSize = $this->getMaxUploadSize();
 

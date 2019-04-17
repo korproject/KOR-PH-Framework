@@ -11,6 +11,10 @@ class ComposerStaticInitba0af8f7008bddf8f2948fcf2f9445ed
     );
 
     public static $prefixLengthsPsr4 = array (
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
         'M' => 
         array (
             'MimeType\\' => 9,
@@ -26,6 +30,10 @@ class ComposerStaticInitba0af8f7008bddf8f2948fcf2f9445ed
     );
 
     public static $prefixDirsPsr4 = array (
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
         'MimeType\\' => 
         array (
             0 => __DIR__ . '/..' . '/katzien/php-mime-type/src',

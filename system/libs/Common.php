@@ -471,31 +471,32 @@ class Common
      */
     public function getDomainInfo($url)
     {
-        if (!$url) {
-            return false;
-        }
+        if ($url) {
+            $pattern = '/^(https|http|ftp):\/\/(.*?)\//';
+            preg_match($pattern, "{$url}/", $matches);
 
-        preg_match("/^(https|http|ftp):\/\/(.*?)\//", "{$url}/", $matches);
-
-        $parts = explode('.', $matches[2]);
-        $tld = array_pop($parts);
-        $host = array_pop($parts);
-        if (strlen($tld) == 2 && strlen($host) <= 3) {
-            $tld = "{$host}.{$tld}";
+            $parts = explode('.', $matches[2]);
+            $tld = array_pop($parts);
             $host = array_pop($parts);
+            if (strlen($tld) == 2 && strlen($host) <= 3) {
+                $tld = "{$host}.{$tld}";
+                $host = array_pop($parts);
+            }
+    
+            $info = [
+                'protocol' => $matches[1],
+                'subdomain' => implode('.', $parts),
+                'domain' => "{$host}.{$tld}",
+                'host' => $host,
+                'tld' => $tld,
+            ];
+    
+            $parse = parse_url($url);
+    
+            return array_merge($info, $parse);
         }
 
-        $info = [
-            'protocol' => $matches[1],
-            'subdomain' => implode('.', $parts),
-            'domain' => "{$host}.{$tld}",
-            'host' => $host,
-            'tld' => $tld,
-        ];
-
-        $parse = parse_url($url);
-
-        return array_merge($info, $parse);
+        return false;
     }
 
     /**
@@ -508,5 +509,70 @@ class Common
     {
         //return $content ? json_encode($content, JSON_UNESCAPED_UNICODE) : '{}';
         return $content ? json_encode($content, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) : '{}';
+    }
+
+        /**
+     * JSON validator
+     *
+     * @param string $content
+     */
+    public function isJson($content)
+    {
+        json_decode($content);
+        return json_last_error() === JSON_ERROR_NONE ? true : false;
+    }
+
+    /**
+     * Get time elsapsed string from given between dates
+     * 
+     * @param string $date_now: current date
+     * @param string $date_old: target old date
+     * @param bool $full: need full date ago string
+     * 
+     * @see source: https://stackoverflow.com/a/18602474
+     * 
+     * @return array
+     */
+    public function timeElapsedString($date_now, $date_old) {
+        $old = new DateTime($date_old);
+        $now = new DateTime($date_now);
+        $diff = $now->diff($old);
+    
+        $diff->w = floor($diff->d / 7);
+        $diff->d -= $diff->w * 7;
+    
+        $string = array(
+            'y' => 'year',
+            'm' => 'month',
+            'w' => 'week',
+            'd' => 'day',
+            'h' => 'hour',
+            'i' => 'minute',
+            's' => 'second'
+        );
+        foreach ($string as $k => &$v) {
+            if ($diff->$k) {
+                $v = $diff->$k . ',' . $v . ($diff->$k > 1 ? 's' : '');
+            } else {
+                unset($string[$k]);
+            }
+        }
+
+        if ($string && is_array($string) && count($string) > 0){
+            $parse_ago = explode(',', $string[key(array_slice($string, 0, 1))]);
+
+            return [
+                'count' => $parse_ago[0],
+                'time_part' => $parse_ago[1]
+            ];
+        } else {
+            return [
+                'count' => false,
+                'time_part' => 'just_now'
+            ];
+        }
+
+        print_r($string);
+        return false;
     }
 }

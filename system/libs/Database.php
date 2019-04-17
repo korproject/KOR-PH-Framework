@@ -28,10 +28,10 @@
  * 
  * @category   Database
  * @package    PDODatabaseClass
- * @author     Original Author <yildiray@eyuperdogan.com.tr>
+ * @author     Original Author <iam@egoist.dev>
  * @copyright  2018 Yıldıray Eyüp Erdoğan
  * @license    MIT
- * @version    0.1
+ * @version    0.2
  * @link       https://github.com/EgoistDeveloper/PDODatabaseClass
  * @see        http://php.net/manual/tr/book.pdo.php
  */
@@ -41,7 +41,6 @@ class Database
     public $pdo = null;
     public $database = null;
     public $debug = false;
-    //public $auto_debug = true;
 
     public $is_raw = false;
     public $all = false;

@@ -6,7 +6,8 @@
         "lcobucci/jwt": "3.2.0",
         "mustache/mustache": "dev-master",
         "piwik/device-detector": "dev-master",
-        "katzien/php-mime-type": "dev-master"
+        "katzien/php-mime-type": "dev-master",
+        "phpmailer/phpmailer": "dev-master"
     },
     "license": "MIT",
     "authors": [

@@ -2,10 +2,17 @@
 
 class Bootstrap extends Lang
 {
+    public $allowedMethods = [
+        'get',
+        'post',
+        'put',
+        'delete',
+    ];
     public $controllerPath = 'app/controllers';
     public $clientAuth = null;
     public $common = null;
     public $lang = null;
+    public $httpData = null;
 
     public function __construct()
     {
@@ -14,6 +21,7 @@ class Bootstrap extends Lang
 
         $this->clientAuth = new ClientAuth();
         $this->common = new Common();
+        $this->httpData = new HttpData();
         $this->parseUrl();
     }
 
@@ -26,9 +34,9 @@ class Bootstrap extends Lang
                 return $checkAuth;
             } else if ($checkAuth === 'renew') {
                 $token = $this->clientAuth->renewJwtToken($token);
-    
+
                 setcookie('session_token', $token, strtotime('+1 year', time()), '/');
-    
+
                 return $this->checkWebSession($token); // ### check loop
             }
         }
@@ -36,7 +44,7 @@ class Bootstrap extends Lang
         return false;
     }
 
-    public function parseUrl()
+    private function parseUrl()
     {
         // file path
         $file = isset($_GET['file']) ? $_GET['file'] : null;
@@ -58,7 +66,7 @@ class Bootstrap extends Lang
                 require_once $controllerFilePath;
 
                 if (class_exists("{$className}Controller")) {
-                    if ($targetSection === 'api') {                        
+                    if ($targetSection === 'api') {
                         $this->callApiController($file, $className);
                     } else {
                         $this->callBaseController($file, $className);
@@ -90,19 +98,19 @@ class Bootstrap extends Lang
             http_response_code(403);
             echo json_encode([
                 'result' => false,
-                'message' => $this->lang->error_auth_required
+                'message' => $this->lang->error_auth_required,
             ]);
             exit();
         }
 
         $controllerClass = "{$className}Controller";
         $controller = new $controllerClass($file, $className, $checkAuth);
-        $controller->data = json_decode(json_encode($this->common->post()));
         $controller->loader = new Loader();
     }
 
     private function callApiController($file, $className)
     {
+        // auth
         $token = $this->common->getHeader('session_token');
         $checkAuth = $token ? $this->checkWebSession($token) : false;
 
@@ -113,19 +121,19 @@ class Bootstrap extends Lang
             http_response_code(403);
             echo json_encode([
                 'result' => false,
-                'message' => $this->lang->error_auth_required
+                'message' => $this->lang->error_auth_required,
             ]);
             exit();
         }
 
+        // call the controller
         $controllerClass = "{$className}Controller";
         $controller = new $controllerClass($file, $className, $checkAuth);
-        $controller->data = $this->common->post();
         $controller->loader = new Loader();
-        
+
         $request = null;
-        $requestGet = $this->common->get('request');
-        $requestPost = $this->common->post('request');
+        $requestGet = $this->httpData->get('request');
+        $requestPost = $this->httpData->post('request');
 
         $request = $requestPost ? $requestPost : $requestGet;
 
@@ -133,7 +141,7 @@ class Bootstrap extends Lang
             http_response_code(403);
             $controller->result = [
                 'result' => false,
-                'message' => "Invalid argument: {$request}"
+                'message' => "Invalid argument: {$request}",
             ];
             exit();
         } else {

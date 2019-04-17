@@ -5,7 +5,7 @@ class IndexController extends BaseController
     public function __construct($file, $className, $user)
     {
         parent::__construct($file, $className, $user);
-        $this->arrayToTable();
+        $this->benchmarks();
 
         $this->result['testa'] = 'KOR PHFramework';
     }
@@ -23,18 +23,18 @@ class IndexController extends BaseController
             'x3' => function(){
                 $var = explode(' ', 'PHP: microtime - Manual + PHP: microtime - Manual + PHP: microtime - Manual');
             }
-        ], 10000);
+        ], 100000);
 
         print_r($results);
 
 
         $results1 = $benchmark->runBenchmark(function(){
             $var = explode(' ', 'PHP: microtime - Manual');
-        }, 10000);
+        }, 100000);
 
         $results2 = $benchmark->runBenchmark(function(){
             $var = explode(' ', 'PHP: microtime - Manual + PHP: microtime - Manual');
-        }, 10000);
+        }, 100000);
 
         print_r($results1);
         print_r($results2);

@@ -17,6 +17,7 @@ class Lang
 
         $langPath = __DIR__ . '/../../app/lang';
         $langFile = "{$langPath}/{$lang}.json";
+        $langContents = null;
 
         if (file_exists($langFile)) {
             $file = file_get_contents($langFile);
@@ -24,7 +25,7 @@ class Lang
             if ($file) {
                 $langContents = json_decode($file, $asArray);
             } else if (!$file && $lang != 'en_us') {
-                return $this->getLang(DEFAULT_LANG, true);
+                return $this->getLang('en_us', true);
             }
         }
 
